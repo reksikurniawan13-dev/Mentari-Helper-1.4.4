@@ -1,0 +1,74 @@
+{
+  "manifest_version": 3,
+  "name": "Mentari Helper",
+  "version": "1.4.4",
+  "description": "Pengingat forum diskusi Mentari UNPAM, bantuan AI untuk quiz dan forum, isi otomatis kuesioner, serta semester, presensi, dan kuesioner KHS di My Unpam. Made by Rex.",
+  "permissions": [
+    "storage",
+    "alarms",
+    "notifications"
+  ],
+  "host_permissions": [
+    "https://mentari.unpam.ac.id/*",
+    "https://generativelanguage.googleapis.com/*",
+    "https://drive.google.com/*",
+    "https://docs.google.com/*",
+    "https://drive.usercontent.google.com/*",
+    "https://*.googleusercontent.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_title": "Mentari Helper by Rex",
+    "default_icon": {
+      "16": "icon16.png",
+      "32": "icon32.png"
+    }
+  },
+  "icons": {
+    "16": "icon16.png",
+    "32": "icon32.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://mentari.unpam.ac.id/*",
+        "https://my.unpam.ac.id/*"
+      ],
+      "js": [
+        "netwatch.js"
+      ],
+      "run_at": "document_start",
+      "world": "MAIN"
+    },
+    {
+      "matches": [
+        "https://mentari.unpam.ac.id/*"
+      ],
+      "js": [
+        "lib.js",
+        "content.js"
+      ],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": [
+        "https://my.unpam.ac.id/*"
+      ],
+      "js": [
+        "lib.js",
+        "content.js",
+        "myunpam.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "minimum_chrome_version": "119",
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": true
+  }
+}
